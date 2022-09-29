@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 Note:
 Part of this code was copied and modified from github.com/mila-udem/fuel.git (MIT License)
@@ -8,6 +8,7 @@ import logging
 import numpy
 import zmq
 from numpy.lib.format import header_data_from_array_1_0
+import pdb
 
 import six
 if six.PY3:
@@ -143,6 +144,7 @@ def start_server(data_stream, port=5557, hwm=20):
   Defaults to 10. Be sure to set the corresponding HWM on the
   receiving end as well.
   """
+
   logging.basicConfig(level='INFO')
 
   context = zmq.Context()
@@ -202,11 +204,24 @@ if __name__ == "__main__":
     './dataset/camera/2016-06-08--11-46-01.h5'
   ]
 
+  # 9 for training
+  # train_path = [
+  #   './dataset/camera/2016-01-30--11-24-51.h5',
+  # ]
+
+  # # 2 for validation
+  # validation_path = [
+  #   './dataset/camera/2016-06-02--21-39-29.h5',
+  # ]
+
+
+
   if args.validation:
     datapath = validation_path
   else:
     datapath = train_path
 
   gen = datagen(datapath, time_len=args.time, batch_size=args.batch, ignore_goods=args.nogood)
+
   start_server(gen, port=args.port, hwm=args.buffer)
 
