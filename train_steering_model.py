@@ -33,6 +33,8 @@ def get_model(time_len=1):
   model.add(Convolution2D(32, 5, 5, subsample=(2, 2), border_mode="same"))
   model.add(ELU())
   model.add(Convolution2D(64, 5, 5, subsample=(2, 2), border_mode="same"))
+
+  
   model.add(Flatten())
   model.add(Dropout(.2))
   model.add(ELU())
